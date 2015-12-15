@@ -6,11 +6,11 @@ var myApp = angular.module('myApp', [
 myApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/week', {
-        templateUrl: 'partials/list.html',
-        controller: 'ListController'
-    }).when('/day/', {
-        templateUrl: 'partials/admin.html',
-        controller: 'AdminController'
+        templateUrl: 'partials/week-view.html',
+        controller: 'WeekController'
+    }).when('/day', {
+        templateUrl: 'partials/day-view.html',
+        controller: 'DayController'
     }).
     otherwise({
         redirectTo: '/week'
