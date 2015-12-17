@@ -1,0 +1,31 @@
+[
+	{	
+		"id"		  : 1,
+		"first_name"  : "Ruby",
+		"last_name"   : "Cohen",
+		"avatar_link" : "",
+		"position"    : 1
+ 	},
+ 	{
+ 		"id"		  : 2,
+		"first_name"  : "George",
+		"last_name"   : "Becker",
+		"avatar_link" : "",
+		"position"    : 1
+ 	},
+ 	{
+ 		"id"		  : 3,
+		"first_name"  : "Terence",
+		"last_name"   : "Taylor",
+		"avatar_link" : "",
+		"position"    : 2
+ 	},
+ 	{
+ 		"id"		  : 4,
+		"first_name"  : "Barry",
+		"last_name"   : "Hunt",
+		"avatar_link" : "",
+		"position"    : 2
+ 	}
+
+]

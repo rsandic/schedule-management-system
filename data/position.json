@@ -1,0 +1,15 @@
+[
+	{
+	"id" : 1,
+	"name" : "barmen",
+	"color" : "white"
+	},
+	{
+	"id" : 2,
+	"name" : "waiter",
+	"color" : "green"
+	}
+
+]
+
+
