@@ -40,7 +40,7 @@ myApp.factory('Positions', ['$rootScope', '$firebaseArray', 'Position',
             var tmp_value = {};
             angular.forEach(factory.positions, function(value, key) {
                 if (value.getId() === id) {
-                    tmp_value = value;
+                    tmp_value = value.getData();
                 }
             });
 

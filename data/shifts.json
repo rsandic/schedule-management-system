@@ -1,14 +1,20 @@
 [{
     "id": 1,
-    "date_time": "2015-12-17T09",
+    "date_time": "2015-12-17",
     "name": "first_shift",
     "position": 2,
     "employees": [1, 4]
 
 }, {
     "id": 2,
-    "date_time": "2015-12-17T17",
+    "date_time": "2015-12-17",
     "name": "second_shift",
+    "position": 1,
+    "employees": [2, 3]
+}, {
+    "id": 2,
+    "date_time": "2015-12-13",
+    "name": "first_shift",
     "position": 1,
     "employees": [2, 3]
 }, {

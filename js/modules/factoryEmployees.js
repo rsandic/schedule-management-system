@@ -40,10 +40,11 @@ myApp.factory('Employees', ['$rootScope', '$firebaseArray', 'Employee',
         factory.getEmployeeById = function(id) {
             var tmp_ret_value = null;
             angular.forEach(factory.employees, function(value, key) {
-                if (id === value.id) {
-                    tmp_ret_value = value;
+                if (id === value.getId()) {
+                    tmp_ret_value = value.getData();
                 }
             });
+            
             return tmp_ret_value;
         }
 
@@ -98,6 +99,7 @@ myApp.factory('Employee', function(Positions) {
                 return data.position;
             },
             setEmployeeValues: function(item) {
+                this.setId(item.id);
                 this.setFirstName(item.first_name);
                 this.setLastName(item.last_name);
                 this.setAvatar(item.avatar);

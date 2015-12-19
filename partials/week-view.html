@@ -4,19 +4,24 @@
         <table class="day-table">
             <thead>
                 <tr>
-                    <td></td>
-                    <td ng-repeat="day in shiftsInDays.days">{{day}}</td>
                 </tr>
             </thead>
-            <tr ng-repeat="employ in shiftsInDays.employs">
-                <td class="emp-name">{{employ.first_name}} {{employ.last_name}}
+            <tr>
+                
+                <td ng-repeat="shiftDayEmp in shiftsInDays">{{shiftDayEmp.day}}</td>
+            </tr>
+            <tr>
+                <td ng-repeat="shiftDayEmp in shiftsInDays">
+                <div ng-repeat="shift in shiftDayEmp.shifts">
+                    {{shift}}
+                </div>
                 </td>
-                <td ng-repeat="shift in shiftsInDays.shifts track by $index">
+            </tr>
+            <!--  <td ng-repeat="shift in shiftDayEmp.shifts track by $index">
                     <div ng-if="isEmployeeInShift(employ.id, shift.employees)">
                         {{shift.name}}
                     </div>
-                </td>
-            </tr>
+                </td> -->
         </table>
     </div>
     <div class="col-md-2">

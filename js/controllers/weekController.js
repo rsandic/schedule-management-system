@@ -6,18 +6,13 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'Positions', 'Employ
         $scope.employeesList = [];
         $scope.allShifts = [];
 
-        $scope.employeesList = Employees.getEmployeesList();
+        $scope.employeesList = Employees.getEmployeesDataList();
         $scope.allShifts = ShiftCollection.getAllShift();
-
-
-        $scope.shiftsInDays = {};
-
-        $scope.days = ['2015-12-06', '2015-12-07', '2015-12-08', '2015-12-09', '2015-12-10', '2015-12-11', '2015-12-12'];
 
         $scope.Alldays = [ 
                         ['2015-12-06', '2015-12-07', '2015-12-08', '2015-12-09', '2015-12-10', '2015-12-11', '2015-12-12'], 
 
-                        ['2015-12-13', '2015-12-14', '2015-12-15', '2015-12-16', '2015-12-17T09', '2015-12-18', '2015-12-19'],
+                        ['2015-12-13', '2015-12-14', '2015-12-15', '2015-12-16', '2015-12-17', '2015-12-18', '2015-12-19'],
 
                         ['2015-12-20', '2015-12-21', '2015-12-22', '2015-12-23', '2015-12-24', '2015-12-25', '2015-12-26']
 
@@ -31,7 +26,7 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'Positions', 'Employ
         var today = new Date();
         var currentWeek =  moment(today).week();
         //get all days in current week
-        $scope.currentWeekDates = $scope.Alldays[currentWeek]; 
+        $scope.currentWeekDates = $scope.Alldays[1]; 
         //definisati if > 0 < 54
 
         $scope.nextWeek = function(){
@@ -53,51 +48,34 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'Positions', 'Employ
 
                 tmp_prep_days.push(moment().day(value));
             });
-
-            console.log(tmp_prep_days);
         }
 
-        $scope.dayForHeadrView = 
+        //$scope.dayForHeadrView = 
+
 
         //matrih for table
         $scope.digestEmpByDays = function() {
-            $scope.shiftsInDays = {
-                "days": $scope.days,
-                "employs": $scope.employeesList,
-                "shifts": []
-            };
+            $scope.shiftsInDays = [];
 
+            
             //iterate through all days
-            angular.forEach($scope.shiftsInDays.days, function(value, key) {
-                var tmp_check_in_day = false;
-                var tmp_check_in_shift = false;
+            angular.forEach($scope.currentWeekDates, function(value, key) {
+                var tmp_shifts = [];
 
+                // console.log($scope.allShifts);
                 //iterate through all shifts
                 angular.forEach($scope.allShifts, function(value1, key1) {
                     //if time of shift and day is same 
+                    //console.info(value1);
                     if (value === value1.date_time) {
-                        tmp_check_in_day = true;
-                        //find all employees in thaht shift
-                        angular.forEach(value1.employees, function(value2, key2) {
-
-                            var tmp_emp = Employees.getEmployeeById(value2);
-                            if (tmp_emp != null) {
-                                tmp_check_in_shift = true;
-                            }
-                            //console.log(tmp_emp);
-
-                        });
-
-                        if (tmp_check_in_shift) {
-                            $scope.shiftsInDays.shifts.push(value1);
-                        }
-
+                        tmp_shifts.push(value1);
                     }
                 });
-                //
-                if (!tmp_check_in_day) {
-                    $scope.shiftsInDays.shifts.push('');
-                }
+                $scope.shiftsInDays.push(
+                {
+                    "day": value,
+                    "shifts" : tmp_shifts
+                });
 
             });
 
@@ -109,18 +87,17 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'Positions', 'Employ
         }
 
         $scope.$on('handleChagePositionssList', function() {
-            $scope.PositionsList = Positions.getPositionssList();
+            $scope.PositionsList = Positions.getPositionsDataList();
 
         });
 
         $scope.$on('handleChageEmployeesList', function() {
-            $scope.employeesList = Employees.getEmployeesList();
-            $scope.digestEmpByDays();
-
+            $scope.employeesList = Employees.getEmployeesDataList();
+            
         });
 
         $scope.$on('handleChangeShiftList', function() {
-            $scope.allShifts = ShiftCollection.getAllShift();
+            $scope.allShifts = ShiftCollection.getAllShiftDataList();
             $scope.digestEmpByDays();
         });
 
@@ -137,7 +114,7 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'Positions', 'Employ
             return tmp_check;
         }
 
-
+        console.log($scope.shiftsInDays);
 
     }
 ]);
