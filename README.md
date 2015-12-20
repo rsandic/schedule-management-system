@@ -13,3 +13,5 @@ Schedule management system for organizing shifts employees in company.
 -For week and day view data need do be formated in appropriate table format.
 
 -Data in day view you can see in console, in developer tools in browser.
+
+-For application testing you need to download this files on your localhost server.
