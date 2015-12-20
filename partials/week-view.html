@@ -7,14 +7,18 @@
                 </tr>
             </thead>
             <tr>
-                
                 <td ng-repeat="shiftDayEmp in shiftsInDays">{{shiftDayEmp.day}}</td>
             </tr>
             <tr>
                 <td ng-repeat="shiftDayEmp in shiftsInDays">
-                <div ng-repeat="shift in shiftDayEmp.shifts">
-                    {{shift}}
-                </div>
+                    <div ng-repeat="shift in shiftDayEmp.shifts">
+                        <div>
+                            {{shift.employees[0].first_name}} {{shift.employees[0].last_name}}
+                            <br> {{shift.position.name}}
+                            <br> {{shift.name}}
+                            <hr>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <!--  <td ng-repeat="shift in shiftDayEmp.shifts track by $index">
@@ -25,12 +29,31 @@
         </table>
     </div>
     <div class="col-md-2">
-        <div class="btn-wr">
-            <a ng-href="#/day">
-                <div class="row btn btn-primary">
-                    change to day view
-                </div>
-            </a>
+        <div class="row">
+            <div class="btn-wr">
+                <a ng-href="#/day">
+                    <div class="row btn btn-primary">
+                        change to day view
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
+</div>
+<div class="row nex-prev-wr">
+    <div class="col-md-2 col-md-offset-2">
+        <div class="btn-wr next-week" ng-click="prevWeek()">
+            <div class="row btn btn-primary">
+                Prev Week
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-wr pre-day" ng-click="nextWeek()">
+            <div class="row btn btn-primary">
+                Next Week
+            </div>
+        </div>
+    </div>
+    
 </div>
