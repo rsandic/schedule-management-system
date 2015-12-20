@@ -8,7 +8,7 @@ myApp.config(['$routeProvider', function($routeProvider) {
     when('/week', {
         templateUrl: 'partials/week-view.html',
         controller: 'WeekController'
-    }).when('/day', {
+    }).when('/day/:date', {
         templateUrl: 'partials/day-view.html',
         controller: 'DayController'
     }).

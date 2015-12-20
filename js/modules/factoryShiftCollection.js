@@ -31,15 +31,25 @@ myApp.factory('ShiftCollection', ['$rootScope', '$firebaseArray', 'Shift',
 
         factory.broadcatShiftList = function() {
             $rootScope.$broadcast('handleChangeShiftList');
-        }
+        };
 
         factory.getAllShift = function() {
             return factory.all_shifts;
-        }
+        };
 
         factory.getAllShiftDataList = function() {
             return factory.all_shifts_data;
-        }
+        };
+        factory.getShiftForOneDay = function(shift_date){
+            var tmp_shift_date = shift_date + '';
+            var retValue = {};
+            angular.forEach(factory.all_shifts_data, function(value, key) {
+                if(value.date_time === tmp_shift_date){
+                    retValue = value;
+                } 
+            });
+            return retValue;
+        };
 
         return factory;
     }

@@ -9,13 +9,13 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.employeesList = Employees.getEmployeesDataList();
         $scope.allShifts = ShiftCollection.getAllShift();
 
+        $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
+        
         $scope.current_week = TimeCollection.current_week;
         $scope.all_weeks_with_days = TimeCollection.getAllWeeksWithDates();
-
         $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
-
-        console.log($scope.current_week_dates);
-
+        $scope.weekdays_for_header = TimeCollection.getWeekDaysForHeader();
+    
         $scope.prevWeek = function() {
             if ($scope.current_week > 1) {
                 $scope.current_week = $scope.current_week - 1;
@@ -23,8 +23,9 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
                 $scope.current_week = 53;
             }
             $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
-            $scope.digestEmpByDays();
-        }
+            $scope.arrangeEmpByDays();
+        };
+
         $scope.nextWeek = function() {
             if ($scope.current_week > 0 && $scope.current_week < 53) {
                 $scope.current_week = $scope.current_week + 1;
@@ -33,12 +34,10 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
                 $scope.current_week = 1;
             }
             $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
-            $scope.digestEmpByDays();
-        }
+            $scope.arrangeEmpByDays();
+        };
 
-
-        //matrih for table
-        $scope.digestEmpByDays = function() {
+        $scope.arrangeEmpByDays = function() {
             $scope.shiftsInDays = [];
 
 
@@ -55,18 +54,20 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
                         tmp_shifts.push(value1);
                     }
                 });
+
                 $scope.shiftsInDays.push({
                     "day": value,
+                    "day_name" : (moment(value).format('dddd')),   
                     "shifts": tmp_shifts
                 });
 
             });
 
-
-        }
+        };
 
         if ($scope.employeesList.length > 0) {
-            $scope.digestEmpByDays();
+
+            $scope.arrangeEmpByDays();
         }
 
         $scope.$on('handleChagePositionssList', function() {
@@ -77,12 +78,12 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.$on('handleChageEmployeesList', function() {
             $scope.employeesList = Employees.getEmployeesDataList();
 
-
         });
 
         $scope.$on('handleChangeShiftList', function() {
             $scope.allShifts = ShiftCollection.getAllShiftDataList();
-            $scope.digestEmpByDays();
+
+            $scope.arrangeEmpByDays();
         });
 
 
