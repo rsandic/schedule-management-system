@@ -3,19 +3,20 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
     function($scope, $rootScope, TimeCollection, Positions, Employees, ShiftCollection) {
 
 
-        $scope.employeesList = [];
-        $scope.allShifts = [];
+        $scope.employees_list = [];
+        $scope.all_shifts = [];
+        $scope.tody_date_class = false;
 
-        $scope.employeesList = Employees.getEmployeesDataList();
-        $scope.allShifts = ShiftCollection.getAllShift();
+        $scope.employees_list = Employees.getEmployeesDataList();
+        $scope.all_shifts = ShiftCollection.getAllShift();
 
         $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
-        
+
         $scope.current_week = TimeCollection.current_week;
         $scope.all_weeks_with_days = TimeCollection.getAllWeeksWithDates();
         $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
         $scope.weekdays_for_header = TimeCollection.getWeekDaysForHeader();
-    
+
         $scope.prevWeek = function() {
             if ($scope.current_week > 1) {
                 $scope.current_week = $scope.current_week - 1;
@@ -29,8 +30,7 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.nextWeek = function() {
             if ($scope.current_week > 0 && $scope.current_week < 53) {
                 $scope.current_week = $scope.current_week + 1;
-            }
-            else {
+            } else {
                 $scope.current_week = 1;
             }
             $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
@@ -41,15 +41,12 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
             $scope.shiftsInDays = [];
 
 
-            //iterate through all days
+            //iterate through all days in current week
             angular.forEach($scope.current_week_dates, function(value, key) {
                 var tmp_shifts = [];
-
-                // console.log($scope.allShifts);
                 //iterate through all shifts
-                angular.forEach($scope.allShifts, function(value1, key1) {
+                angular.forEach($scope.all_shifts, function(value1, key1) {
                     //if time of shift and day is same 
-                    //console.info(value1);
                     if (value === value1.date_time) {
                         tmp_shifts.push(value1);
                     }
@@ -57,7 +54,7 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
 
                 $scope.shiftsInDays.push({
                     "day": value,
-                    "day_name" : (moment(value).format('dddd')),   
+                    "day_name": (moment(value).format('dddd')),
                     "shifts": tmp_shifts
                 });
 
@@ -65,8 +62,8 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
 
         };
 
-        if ($scope.employeesList.length > 0) {
-
+        if ($scope.employees_list.length > 0) {
+            $scope.all_shifts = ShiftCollection.getAllShiftDataList();
             $scope.arrangeEmpByDays();
         }
 
@@ -75,13 +72,13 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
 
         });
 
-        $scope.$on('handleChageEmployeesList', function() {
-            $scope.employeesList = Employees.getEmployeesDataList();
+        $scope.$on('handleChageemployees_list', function() {
+            $scope.employees_list = Employees.getEmployeesDataList();
 
         });
 
         $scope.$on('handleChangeShiftList', function() {
-            $scope.allShifts = ShiftCollection.getAllShiftDataList();
+            $scope.all_shifts = ShiftCollection.getAllShiftDataList();
 
             $scope.arrangeEmpByDays();
         });

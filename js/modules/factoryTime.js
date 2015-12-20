@@ -13,8 +13,8 @@ myApp.factory('TimeCollection', ['$rootScope', function($rootScope) {
 
     //get all days in current week
     factory.current_week = current_week;
-    
-    var begin = moment().isoWeekday(1).startOf('week');    
+
+    var begin = moment().isoWeekday(1).startOf('week');
 
 
     //all dates and weeks in one year
@@ -43,7 +43,7 @@ myApp.factory('TimeCollection', ['$rootScope', function($rootScope) {
 
     factory.weekdays_for_header = tmp_weekdays;
 
-    factory.getWeekDaysForHeader = function(){
+    factory.getWeekDaysForHeader = function() {
         return factory.weekdays_for_header;
     }
 

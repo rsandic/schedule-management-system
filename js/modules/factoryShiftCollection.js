@@ -26,7 +26,7 @@ myApp.factory('ShiftCollection', ['$rootScope', '$firebaseArray', 'Shift',
                 console.error(err);
             });
 
-        factory.all_shifts = tmp_shifts_list_all;   
+        factory.all_shifts = tmp_shifts_list_all;
         factory.all_shifts_data = tmp_shifts_data_list;
 
         factory.broadcatShiftList = function() {
@@ -40,13 +40,13 @@ myApp.factory('ShiftCollection', ['$rootScope', '$firebaseArray', 'Shift',
         factory.getAllShiftDataList = function() {
             return factory.all_shifts_data;
         };
-        factory.getShiftForOneDay = function(shift_date){
+        factory.getShiftForOneDay = function(shift_date) {
             var tmp_shift_date = shift_date + '';
-            var retValue = {};
+            var retValue = [];
             angular.forEach(factory.all_shifts_data, function(value, key) {
-                if(value.date_time === tmp_shift_date){
-                    retValue = value;
-                } 
+                if (value.date_time === tmp_shift_date) {
+                    retValue.push(value);
+                }
             });
             return retValue;
         };

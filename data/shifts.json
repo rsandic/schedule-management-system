@@ -3,38 +3,78 @@
     "date_time": "2015-12-17",
     "name": "first_shift",
     "position": 2,
-    "employees": [1, 4]
+    "employees": [3, 4]
 
 }, {
     "id": 2,
     "date_time": "2015-12-17",
     "name": "second_shift",
     "position": 1,
-    "employees": [2, 3]
+    "employees": [1, 2]
 }, {
     "id": 2,
     "date_time": "2015-12-13",
     "name": "first_shift",
-    "position": 1,
-    "employees": [2, 3]
+    "position": 2,
+    "employees": [3, 4]
 }, {
     "id": 3,
     "date_time": "2015-12-13",
     "name": "second_shift",
     "position": 1,
     "employees": [1, 2]
-},
-{
+}, {
     "id": 4,
     "date_time": "2015-12-16",
     "name": "second_shift",
-    "position": 1,
+    "position": 2,
     "employees": [4]
-},
-{
+}, {
     "id": 5,
     "date_time": "2015-12-15",
     "name": "first_shift",
     "position": 1,
     "employees": [2]
+}, {
+    "id": 6,
+    "date_time": "2015-12-21",
+    "name": "first_shift",
+    "position": 1,
+    "employees": [2]
+}, {
+    "id": 7,
+    "date_time": "2015-12-22",
+    "name": "first_shift",
+    "position": 2,
+    "employees": [3, 4]
+
+}, {
+    "id": 8,
+    "date_time": "2015-12-22",
+    "name": "second_shift",
+    "position": 1,
+    "employees": [1, 2]
+
+}
+, {
+    "id": 9,
+    "date_time": "2015-12-25",
+    "name": "second_shift",
+    "position": 1,
+    "employees": [1, 2]
+
+}, {
+    "id": 10,
+    "date_time": "2015-12-28",
+    "name": "second_shift",
+    "position": 1,
+    "employees": [1, 2]
+
+}, {
+    "id": 11,
+    "date_time": "2015-12-29",
+    "name": "first_shift",
+    "position": 2,
+    "employees": [3, 4]
+
 }]
