@@ -48,7 +48,6 @@ myApp.factory('Positions', ['$rootScope', '$firebaseArray', 'Position',
 
         }
 
-
         return factory;
     }
 ]);

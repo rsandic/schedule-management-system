@@ -6,6 +6,9 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.employees_list = [];
         $scope.all_shifts = [];
         $scope.tody_date_class = false;
+        $scope.matrix = [
+            []
+        ];
 
         $scope.employees_list = Employees.getEmployeesDataList();
         $scope.all_shifts = ShiftCollection.getAllShift();
@@ -62,24 +65,58 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
 
         };
 
+        $scope.makeMatrix = function() {
+            $scope.current_week_dates_with_current_date = [];
+            $scope.current_week_dates_with_current_date = $scope.today_date + ',';
+            $scope.current_week_dates_with_current_date =
+            $scope.current_week_dates_with_current_date.concat($scope.current_week_dates);
+
+            $scope.matrix[0] = $scope.current_week_dates_with_current_date;
+
+            angular.forEach($scope.employees_list, function(value, key) {
+
+                var tmp_shift_names = [];
+                var tmp_week_shifts = [];
+                angular.forEach($scope.current_week_dates, function(value1, key1) {
+                    var tmp_shifts_in_day = [];
+
+                    tmp_shifts_in_day = ShiftCollection.getShiftForOneDay(value1);
+                    tmp_shift_names_in_day = ShiftCollection.getAllEmpInShift(tmp_shifts_in_day, value.id);
+
+                    tmp_week_shifts.push(tmp_shift_names_in_day);
+
+
+                });
+
+                tmp_week_shifts.unshift(value.first_name);
+
+                $scope.matrix[value.first_name] = tmp_week_shifts;
+
+
+            });
+
+        };
+
+
         if ($scope.employees_list.length > 0) {
             $scope.all_shifts = ShiftCollection.getAllShiftDataList();
             $scope.arrangeEmpByDays();
         }
 
-        $scope.$on('handleChagePositionssList', function() {
-            $scope.PositionsList = Positions.getPositionsDataList();
+        $scope.$on('handleChagePositionsList', function() {
+            $scope.PositionsList = Positions.getPositionsListData();
 
         });
 
-        $scope.$on('handleChageemployees_list', function() {
+        $scope.$on('handleChageEmployeesList', function() {
             $scope.employees_list = Employees.getEmployeesDataList();
 
         });
 
         $scope.$on('handleChangeShiftList', function() {
             $scope.all_shifts = ShiftCollection.getAllShiftDataList();
-
+            $scope.makeMatrix();
+            console.log($scope.matrix);
             $scope.arrangeEmpByDays();
         });
 

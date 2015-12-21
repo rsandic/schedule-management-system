@@ -40,6 +40,7 @@ myApp.factory('ShiftCollection', ['$rootScope', '$firebaseArray', 'Shift',
         factory.getAllShiftDataList = function() {
             return factory.all_shifts_data;
         };
+
         factory.getShiftForOneDay = function(shift_date) {
             var tmp_shift_date = shift_date + '';
             var retValue = [];
@@ -47,6 +48,18 @@ myApp.factory('ShiftCollection', ['$rootScope', '$firebaseArray', 'Shift',
                 if (value.date_time === tmp_shift_date) {
                     retValue.push(value);
                 }
+            });
+            return retValue;
+        };
+
+        factory.getAllEmpInShift = function(shiftsInDay, emp_id) {
+            var retValue = [];
+            angular.forEach(shiftsInDay, function(value, key) {
+                angular.forEach(value.employees, function(value1, key1) {
+                    if(emp_id === value1.id){
+                        retValue.push(value.name);
+                    }
+                });
             });
             return retValue;
         };
