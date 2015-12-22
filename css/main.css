@@ -11,10 +11,22 @@ a:hover {
 }
 .day-table tr td {
   padding: 7px;
-  border: 2px solid #009688;
+  border-left: 2px solid #009688;
+  border-right: 2px solid #009688;
   color: #424242;
   font-weight: 500;
   text-align: center;
+}
+.day-table tr {
+  border-bottom: 2px solid #009688;
+  border-top: 2px solid #009688;
+}
+.day-table tr:first-child {
+  border-bottom: none;
+  padding-bottom: 2px;
+}
+.day-table tr:nth-child(2) {
+  border-top: none;
 }
 .day-table {
   margin-left: auto;

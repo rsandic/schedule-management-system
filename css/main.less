@@ -1,37 +1,59 @@
-.title{
-	text-align: center;
-	font-size: 24px;
-	color : #009688;
+.title {
+    text-align: center;
+    font-size: 24px;
+    color: #009688;
 }
+
 a {
-	color : #009688;
-	&:hover {
-		color : #E65100;
-	}
+    color: #009688;
+    &:hover {
+        color: #E65100;
+    }
 }
-.day-table tr td{
-	padding: 7px;
-	border : 2px solid #009688;
-	color : #424242;
-	font-weight: 500;
-	text-align: center;
+
+.day-table tr td {
+    padding: 7px;
+    border-left: 2px solid #009688;
+    border-right: 2px solid #009688;
+    color: #424242;
+    font-weight: 500;
+    text-align: center;
 }
-.day-table{
-	margin-left: auto;
-	margin-right: auto;
+
+.day-table {
+    tr {
+        border-bottom: 2px solid #009688;
+        border-top: 2px solid #009688;
+        &:first-child {
+            border-bottom: none;
+            padding-bottom: 2px;
+        }
+        &:nth-child(2) {
+            border-top: none;
+        }
+    }
 }
-.emp-name{
-	text-align: left !important;
+
+.day-table {
+    margin-left: auto;
+    margin-right: auto;
 }
-.spacer{
-	margin-top : 20px;
+
+.emp-name {
+    text-align: left !important;
 }
-.btn-wr{
-	padding-top: 50px;
-	.btn-primary{
-		background-color: #01579B;
-	}
+
+.spacer {
+    margin-top: 20px;
 }
-.green{
-	background-color: green !important;
+
+.btn-wr {
+    padding-top: 50px;
+    .btn-primary {
+        background-color: #01579B;
+    }
+}
+
+.green {
+    background-color: green !important;
 }

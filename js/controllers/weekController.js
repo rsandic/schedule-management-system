@@ -17,6 +17,7 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.all_shifts = ShiftCollection.getAllShift();
 
         $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
+        $scope.today_date_for_header = moment($scope.today_date).format('dddd') + ',';
 
         $scope.current_week = TimeCollection.current_week;
         $scope.all_weeks_with_days = TimeCollection.getAllWeeksWithDates();
@@ -31,6 +32,8 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
             }
             $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
             $scope.arrangeEmpByDays();
+            $scope.makeMatrix();
+            $scope.broadcastMatrix();
         };
 
         $scope.nextWeek = function() {
@@ -41,6 +44,8 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
             }
             $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
             $scope.arrangeEmpByDays();
+            $scope.makeMatrix();
+            $scope.broadcastMatrix();
         };
 
         $scope.broadcastMatrix = function() {
@@ -76,28 +81,33 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
             $scope.current_week_dates_with_current_date = [];
             $scope.current_week_dates_with_current_date = $scope.today_date + ',';
             $scope.current_week_dates_with_current_date =
-                $scope.current_week_dates_with_current_date.concat($scope.current_week_dates);
-                
-            $scope.matrix[0] = $scope.current_week_dates_with_current_date;
+                ($scope.current_week_dates_with_current_date.concat($scope.current_week_dates)).split(",");
 
+            $scope.matrix[0] = ($scope.today_date_for_header.concat( $scope.weekdays_for_header)).split(",");
+            $scope.matrix[1] = $scope.current_week_dates_with_current_date;
+           
+            
+            //iterate trought all emp
             angular.forEach($scope.employees_list, function(value, key) {
 
                 var tmp_shift_names = [];
                 var tmp_week_shifts = [];
+                //iterate trought all days for one emp
                 angular.forEach($scope.current_week_dates, function(value1, key1) {
                     var tmp_shifts_in_day = [];
-
+                    //all shifts for that day
                     tmp_shifts_in_day = ShiftCollection.getShiftForOneDay(value1);
-                    tmp_shift_names_in_day = ShiftCollection.getAllEmpInShift(tmp_shifts_in_day, value.id);
+                    //in wich shift work emp for taht day
+                    tmp_shift_names_for_emp = ShiftCollection.getAllEmpShiftInOneDay(tmp_shifts_in_day, value.id);
 
-                    tmp_week_shifts.push(tmp_shift_names_in_day);
+                    tmp_week_shifts.push(tmp_shift_names_for_emp);
 
 
                 });
 
                 tmp_week_shifts.unshift(value.first_name);
 
-                $scope.matrix[value.first_name] = tmp_week_shifts;
+                $scope.matrix[value.id + 1] = tmp_week_shifts;
 
 
             });
@@ -123,16 +133,14 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.$on('handleChangeShiftList', function() {
             $scope.all_shifts = ShiftCollection.getAllShiftDataList();
             $scope.makeMatrix();
-            //console.log($scope.matrix);
             $scope.broadcastMatrix();
             $scope.arrangeEmpByDays();
         });
 
         $scope.$on('handleChangeMatrix', function() {
-            console.log($scope.matrix);
             $scope.matrix1 = $scope.matrix;
         });
-        
+
 
 
     }

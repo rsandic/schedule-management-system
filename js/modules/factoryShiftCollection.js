@@ -52,15 +52,12 @@ myApp.factory('ShiftCollection', ['$rootScope', '$firebaseArray', 'Shift',
             return retValue;
         };
 
-        factory.getAllEmpInShift = function(shiftsInDay, emp_id) {
+        factory.getAllEmpShiftInOneDay = function(shiftsInDay, emp_id) {
             var retValue = "";
             angular.forEach(shiftsInDay, function(value, key) {
                 angular.forEach(value.employees, function(value1, key1) {
                     if(emp_id === value1.id){
-                        retValue = value.name; 
-                    }
-                    else{
-                        retValue = "";    
+                        retValue = value.name;
                     }
                 });
             });
