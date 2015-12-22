@@ -9,6 +9,9 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.matrix = [
             []
         ];
+        $scope.matrix1 = [
+            []
+        ];
 
         $scope.employees_list = Employees.getEmployeesDataList();
         $scope.all_shifts = ShiftCollection.getAllShift();
@@ -40,9 +43,12 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
             $scope.arrangeEmpByDays();
         };
 
+        $scope.broadcastMatrix = function() {
+            $rootScope.$broadcast('handleChangeMatrix');
+        };
+
         $scope.arrangeEmpByDays = function() {
             $scope.shiftsInDays = [];
-
 
             //iterate through all days in current week
             angular.forEach($scope.current_week_dates, function(value, key) {
@@ -66,11 +72,12 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         };
 
         $scope.makeMatrix = function() {
+
             $scope.current_week_dates_with_current_date = [];
             $scope.current_week_dates_with_current_date = $scope.today_date + ',';
             $scope.current_week_dates_with_current_date =
-            $scope.current_week_dates_with_current_date.concat($scope.current_week_dates);
-
+                $scope.current_week_dates_with_current_date.concat($scope.current_week_dates);
+                
             $scope.matrix[0] = $scope.current_week_dates_with_current_date;
 
             angular.forEach($scope.employees_list, function(value, key) {
@@ -116,9 +123,16 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.$on('handleChangeShiftList', function() {
             $scope.all_shifts = ShiftCollection.getAllShiftDataList();
             $scope.makeMatrix();
-            console.log($scope.matrix);
+            //console.log($scope.matrix);
+            $scope.broadcastMatrix();
             $scope.arrangeEmpByDays();
         });
+
+        $scope.$on('handleChangeMatrix', function() {
+            console.log($scope.matrix);
+            $scope.matrix1 = $scope.matrix;
+        });
+        
 
 
     }
