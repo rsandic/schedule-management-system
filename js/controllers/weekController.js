@@ -24,6 +24,14 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
         $scope.weekdays_for_header = TimeCollection.getWeekDaysForHeader();
 
+
+        $scope.matrix_header = ($scope.today_date_for_header.concat($scope.weekdays_for_header)).split(",");
+        $scope.current_week_dates_with_current_date = [];
+        $scope.current_week_dates_with_current_date = $scope.today_date + ',';
+        $scope.current_week_dates_with_current_date =
+            ($scope.current_week_dates_with_current_date.concat($scope.current_week_dates)).split(",");
+
+
         $scope.prevWeek = function() {
             if ($scope.current_week > 1) {
                 $scope.current_week = $scope.current_week - 1;
@@ -78,15 +86,9 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
 
         $scope.makeMatrix = function() {
 
-            $scope.current_week_dates_with_current_date = [];
-            $scope.current_week_dates_with_current_date = $scope.today_date + ',';
-            $scope.current_week_dates_with_current_date =
-                ($scope.current_week_dates_with_current_date.concat($scope.current_week_dates)).split(",");
+            $scope.matrix[0] = $scope.matrix_header;
 
-            $scope.matrix[0] = ($scope.today_date_for_header.concat( $scope.weekdays_for_header)).split(",");
-            $scope.matrix[1] = $scope.current_week_dates_with_current_date;
-           
-            
+
             //iterate trought all emp
             angular.forEach($scope.employees_list, function(value, key) {
 
@@ -107,7 +109,7 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
 
                 tmp_week_shifts.unshift(value.first_name);
 
-                $scope.matrix[value.id + 1] = tmp_week_shifts;
+                $scope.matrix[value.id] = tmp_week_shifts;
 
 
             });
@@ -118,6 +120,7 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         if ($scope.employees_list.length > 0) {
             $scope.all_shifts = ShiftCollection.getAllShiftDataList();
             $scope.arrangeEmpByDays();
+
         }
 
         $scope.$on('handleChagePositionsList', function() {

@@ -28,6 +28,13 @@
             </tr>
         </table> -->
         <table class="day-table">
+            <tr>
+                <td ng-repeat="headerDay in current_week_dates_with_current_date track by $index">
+                    <a ng-class="" ng-href="#/day/{{headerDay}}">
+                    {{headerDay}}
+                    </a>
+                </td>
+            </tr>
             <tr ng-repeat="row in matrix1"> 
                 <td ng-repeat="col in row track by $index">
                      {{col}}
