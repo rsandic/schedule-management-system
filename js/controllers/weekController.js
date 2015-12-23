@@ -25,12 +25,6 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         $scope.weekdays_for_header = TimeCollection.getWeekDaysForHeader();
 
 
-        $scope.matrix_header = ($scope.today_date_for_header.concat($scope.weekdays_for_header)).split(",");
-        $scope.current_week_dates_with_current_date = [];
-        $scope.current_week_dates_with_current_date = $scope.today_date + ',';
-        $scope.current_week_dates_with_current_date =
-            ($scope.current_week_dates_with_current_date.concat($scope.current_week_dates)).split(",");
-
 
         $scope.prevWeek = function() {
             if ($scope.current_week > 1) {
@@ -85,6 +79,13 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         };
 
         $scope.makeMatrix = function() {
+
+            $scope.matrix_header = ($scope.today_date_for_header.concat($scope.weekdays_for_header)).split(",");
+            $scope.current_week_dates_with_current_date = [];
+            $scope.current_week_dates_with_current_date = $scope.today_date + ',';
+            $scope.current_week_dates_with_current_date =
+                ($scope.current_week_dates_with_current_date.concat($scope.current_week_dates)).split(",");
+
 
             $scope.matrix[0] = $scope.matrix_header;
 
