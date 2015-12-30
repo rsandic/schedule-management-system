@@ -32,7 +32,6 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
             } else {
                 $scope.current_week = 53;
             }
-            $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
             $scope.arrangeEmpByDays();
             $scope.makeMatrix();
             $scope.broadcastMatrix();
@@ -44,7 +43,6 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
             } else {
                 $scope.current_week = 1;
             }
-            $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
             $scope.arrangeEmpByDays();
             $scope.makeMatrix();
             $scope.broadcastMatrix();
@@ -79,6 +77,7 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
         };
 
         $scope.makeMatrix = function() {
+            $scope.current_week_dates = $scope.all_weeks_with_days[$scope.current_week];
 
             $scope.matrix_header = ($scope.today_date_for_header.concat($scope.weekdays_for_header)).split(",");
             $scope.current_week_dates_with_current_date = [];
@@ -136,9 +135,9 @@ myApp.controller('WeekController', ['$scope', '$rootScope', 'TimeCollection', 'P
 
         $scope.$on('handleChangeShiftList', function() {
             $scope.all_shifts = ShiftCollection.getAllShiftDataList();
+            $scope.arrangeEmpByDays();
             $scope.makeMatrix();
             $scope.broadcastMatrix();
-            $scope.arrangeEmpByDays();
         });
 
         $scope.$on('handleChangeMatrix', function() {
